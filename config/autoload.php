@@ -25,6 +25,7 @@ ClassLoader::addClasses(array
 (
   // Modules
   'complanar\MobileContent' => 'system/modules/mobilecontent/classes/MobileContent.php',
+  'complanar\MobileArticle' => 'system/modules/mobilecontent/classes/MobileArticle.php',
   // Insert Tags
   'complanar\MobileInsertTag' => 'system/modules/mobilecontent/classes/MobileInsertTag.php'
 ));

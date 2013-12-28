@@ -25,7 +25,7 @@ Is replaced by the content of the language variable
 `$GLOBALS['TL_LANG']['MSC']['toggleDesktop'][0]` or
 `$GLOBALS['TL_LANG']['MSC']['toggleMobile'][0]`
 
-This is normally the text of the standard toggle link created by ´mobile::toggle´.
+This is normally the text of the standard toggle link created by `mobile::toggle`.
 
 ### mobile::toggle_title
 

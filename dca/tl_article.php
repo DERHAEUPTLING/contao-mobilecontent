@@ -33,28 +33,28 @@
  */
 
 /**
- * Table tl_content
+ * Table tl_article
  */
 
 // List
-$GLOBALS['TL_DCA']['tl_content']['list']['sorting']['child_record_callback'] = array('tl_content_mobilecontent', 'addCteTypeWithMobileVisibility');
+$GLOBALS['TL_DCA']['tl_article']['list']['label']['label_callback'] = array('tl_article_mobilecontent', 'articleLabelWithMobileVisibility');
 
 // Palettes
-foreach($GLOBALS['TL_DCA']['tl_content']['palettes'] as $palette=>$fields)
+foreach($GLOBALS['TL_DCA']['tl_article']['palettes'] as $palette=>$fields)
 {
   if (is_string($fields))
   {
     /*echo '<pre>foreach-start\n';
     var_dump($palette, $fields);
     echo '</pre>';*/
-    $GLOBALS['TL_DCA']['tl_content']['palettes'][$palette] = str_replace(';{invisible_legend',  ';{mobilecontent_legend:hide},hideonmobiles,hideondesktops;{invisible_legend', $fields);
+    $GLOBALS['TL_DCA']['tl_article']['palettes'][$palette] = str_replace(';{publish_legend',  ';{mobilecontent_legend:hide},hideonmobiles,hideondesktops;{publish_legend', $fields);
   }
 }
 
 // Fields
-$GLOBALS['TL_DCA']['tl_content']['fields']['hideondesktops'] = array
+$GLOBALS['TL_DCA']['tl_article']['fields']['hideondesktops'] = array
 (
-  'label'                   => &$GLOBALS['TL_LANG']['tl_content']['hideondesktops'],
+  'label'                   => &$GLOBALS['TL_LANG']['tl_article']['hideondesktops'],
   'exclude'                 => true,
   'filter'                  => true,
   'inputType'               => 'checkbox',
@@ -63,9 +63,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['hideondesktops'] = array
 );
 
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['hideonmobiles'] = array
+$GLOBALS['TL_DCA']['tl_article']['fields']['hideonmobiles'] = array
 (
-  'label'                   => &$GLOBALS['TL_LANG']['tl_content']['hideonmobiles'],
+  'label'                   => &$GLOBALS['TL_LANG']['tl_article']['hideonmobiles'],
   'exclude'                 => true,
   'filter'                  => true,
   'inputType'               => 'checkbox',
@@ -75,20 +75,20 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['hideonmobiles'] = array
 
 // Class
 
-class tl_content_mobilecontent extends tl_content {
+class tl_article_mobilecontent extends tl_article {
   /**
-   * Add the type of content element
+   * Add a hint to mobile content visibility to each label
    * @param array
+   * @param string
    * @return string
    */
-  public function addCteTypeWithMobileVisibility($row) {
-    $str = parent::addCteType($row);
-
+  public function articleLabelWithMobileVisibility($row, $label)
+  {
+    $label = $this->addIcon($row, $label);
     if ($row['hideonmobiles'] || $row['hideondesktops']) {
-      
       $classaddition = '';
       $addition = '';
-
+      
       if ($row['hideonmobiles']) {
         $classaddition .= ' hiddenonmobiles';
         if ($row['hideondesktops']) {
@@ -102,13 +102,9 @@ class tl_content_mobilecontent extends tl_content {
         $classaddition .= ' hiddenondesktops';
         $addition .= $GLOBALS['TL_LANG']['MSC']['hiddenondesktops'];
       }
-
-      $searchpattern = '@(\s+)<div\ class="cte_type\ ([a-z]*)">(.*)(\(.*\))?</div>@Um';
-      $replacement = '$1<div class="cte_type $2' . $classaddition . '">$3 ($4' . $addition . ')</div>';
-      $str = preg_replace($searchpattern, $replacement, $str, 1);
+      $label .= '<span class="' . ltrim($classaddition) . '" style="padding-left:3px">(' . $addition . ')</span>';
     }
 
-    return $str;
+    return $label;
   }
-  
 }

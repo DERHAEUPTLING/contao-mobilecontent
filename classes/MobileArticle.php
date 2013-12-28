@@ -1,4 +1,4 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
  * Mobile Content
@@ -33,18 +33,36 @@
  */
 
 /**
- * Back end modules
+ * Run in a custom namespace, so the class can be replaced
  */
+namespace complanar;
 
 /**
- * Front end modules
+ * Class MobileArticle
+ *
+ * Provide methods to handle an additional mobile content
+ * @copyright  Holger Teichert 2013
+ * @author     Holger Teichert <post@complanar.de>
+ * @package    mobilecontent
  */
-
-/**
- * Hooks
- */
-$GLOBALS['TL_HOOKS']['getContentElement'][] = array('complanar\MobileContent', 'filterByMobility');
-$GLOBALS['TL_HOOKS']['getArticle'][] = array('complanar\MobileArticle', 'filterByMobility');
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('complanar\MobileInsertTag', 'replaceMobileInsertTags');
- 
-?>
+class MobileArticle extends \PageRegular
+{ 
+  /**
+   * Filter article by visibility for desktop or mobile devices
+   * 
+   * @access public
+   * @param Database_Result
+   * @return void
+   */
+  public function filterByMobility(&$objArticle)
+  {
+    if ( TL_MODE != 'BE')
+    {
+      global $objPage;
+      if ( $objPage->isMobile && $objArticle->hideonmobiles || !$objPage->isMobile && $objArticle->hideondesktops )
+      {
+        $objArticle->id = 0;
+      }
+    }
+  }
+}

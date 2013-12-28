@@ -43,7 +43,7 @@ namespace complanar;
  * Provide methods to handle an additional mobile content
  * @copyright  Holger Teichert 2013
  * @author     Holger Teichert <post@complanar.de>
- * @package    mobilelayout
+ * @package    mobilecontent
  */
 class MobileContent extends \PageRegular
 { 
@@ -63,8 +63,6 @@ class MobileContent extends \PageRegular
     }
     
     global $objPage;
-    // $blnMobile  = $this->pageMobile($objPage);
-    
     if ( $objPage->isMobile && $objElement->hideonmobiles || !$objPage->isMobile && $objElement->hideondesktops )
     {
       $strBuffer = '';
