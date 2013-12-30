@@ -21,4 +21,3 @@ $GLOBALS['TL_LANG']['MSC']['toggleDesktop'][0] = 'Desktop-Version';
 $GLOBALS['TL_LANG']['MSC']['toggleDesktop'][1] = 'Zur Desktop-Version wechseln';
 $GLOBALS['TL_LANG']['MSC']['hiddenonmobiles'] = 'auf Mobilgeräten ausgeblendet';
 $GLOBALS['TL_LANG']['MSC']['hiddenondesktops'] = 'auf Desktopgeräten ausgeblendet';
-$GLOBALS['TL_LANG']['MSC']['hiddenonmobilesanddesktops'] = 'auf Mobil- und Desktopgeräten ausgeblendet';

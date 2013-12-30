@@ -44,37 +44,26 @@ foreach($GLOBALS['TL_DCA']['tl_content']['palettes'] as $palette=>$fields)
 {
   if (is_string($fields))
   {
-    /*echo '<pre>foreach-start\n';
-    var_dump($palette, $fields);
-    echo '</pre>';*/
-    $GLOBALS['TL_DCA']['tl_content']['palettes'][$palette] = str_replace(';{invisible_legend',  ';{mobilecontent_legend:hide},hideonmobiles,hideondesktops;{invisible_legend', $fields);
+    $GLOBALS['TL_DCA']['tl_content']['palettes'][$palette] = str_replace('invisible',  'invisible,showatdevice', $fields);
   }
 }
 
 // Fields
-$GLOBALS['TL_DCA']['tl_content']['fields']['hideondesktops'] = array
+// Make the published field smaller
+$GLOBALS['TL_DCA']['tl_content']['fields']['invisible']['eval']['tl_class'] .= " w50";
+$GLOBALS['TL_DCA']['tl_content']['fields']['showatdevice'] = array
 (
-  'label'                   => &$GLOBALS['TL_LANG']['tl_content']['hideondesktops'],
+  'label'                   => &$GLOBALS['TL_LANG']['tl_content']['showatdevice'],
   'exclude'                 => true,
   'filter'                  => true,
-  'inputType'               => 'checkbox',
+  'inputType'               => 'select',
+  'options'                 => array('1','d','m'),
+  'reference'               => &$GLOBALS['TL_LANG']['tl_content']['showatdevicelabels'],
   'eval'                    => array('tl_class'=>'w50'),
-  'sql'                     => 'char(1) NOT NULL default \'\''
-);
-
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['hideonmobiles'] = array
-(
-  'label'                   => &$GLOBALS['TL_LANG']['tl_content']['hideonmobiles'],
-  'exclude'                 => true,
-  'filter'                  => true,
-  'inputType'               => 'checkbox',
-  'eval'                    => array('tl_class'=>'w50'),
-  'sql'                     => 'char(1) NOT NULL default \'\''
+  'sql'                     => 'char(1) NOT NULL default \'1\''
 );
 
 // Class
-
 class tl_content_mobilecontent extends tl_content {
   /**
    * Add the type of content element
@@ -82,33 +71,26 @@ class tl_content_mobilecontent extends tl_content {
    * @return string
    */
   public function addCteTypeWithMobileVisibility($row) {
-    $str = parent::addCteType($row);
+    $label = parent::addCteType($row);
 
-    if ($row['hideonmobiles'] || $row['hideondesktops']) {
-      
+    if ($row['showatdevice'] != '1') {
       $classaddition = '';
       $addition = '';
-
-      if ($row['hideonmobiles']) {
+      
+      if ($row['showatdevice'] == 'd') {
         $classaddition .= ' hiddenonmobiles';
-        if ($row['hideondesktops']) {
-          $classaddition .= ' hiddenondesktops';
-          $classaddition .= ' hiddenonmobilesanddesktops';
-          $addition .= $GLOBALS['TL_LANG']['MSC']['hiddenonmobilesanddesktops'];
-        } else {
-          $addition .= $GLOBALS['TL_LANG']['MSC']['hiddenonmobiles'];
-        }
-      } else if ($row['hideondesktops']) {
+        $addition = $GLOBALS['TL_LANG']['MSC']['hiddenonmobiles'];
+      } elseif ($row['showatdevice'] == 'm') {
         $classaddition .= ' hiddenondesktops';
         $addition .= $GLOBALS['TL_LANG']['MSC']['hiddenondesktops'];
       }
 
       $searchpattern = '@(\s+)<div\ class="cte_type\ ([a-z]*)">(.*)(\(.*\))?</div>@Um';
       $replacement = '$1<div class="cte_type $2' . $classaddition . '">$3 ($4' . $addition . ')</div>';
-      $str = preg_replace($searchpattern, $replacement, $str, 1);
+      $label = preg_replace($searchpattern, $replacement, $label, 1);
     }
 
-    return $str;
+    return $label;
   }
   
 }

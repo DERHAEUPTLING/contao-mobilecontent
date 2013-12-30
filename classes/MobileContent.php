@@ -57,17 +57,22 @@ class MobileContent extends \PageRegular
    */
   public function filterByMobility($objElement, $strBuffer)
   {
-    if ( TL_MODE == 'BE')
+    if ( TL_MODE != 'BE')
     {
-      return $strBuffer;
+      global $objPage;
+      $hide = false;
+      switch($objElement->showatdevice) {
+        case 'd':
+          $hide = ($objPage->isMobile);
+          break;
+        case 'm':
+          $hide = !($objPage->isMobile);
+          break;
+      }
+      if ($hide) {
+        $strBuffer = '';
+      }
     }
-    
-    global $objPage;
-    if ( $objPage->isMobile && $objElement->hideonmobiles || !$objPage->isMobile && $objElement->hideondesktops )
-    {
-      $strBuffer = '';
-    }
-    
     return $strBuffer;
   }
 }

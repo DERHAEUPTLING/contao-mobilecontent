@@ -59,8 +59,16 @@ class MobileArticle extends \PageRegular
     if ( TL_MODE != 'BE')
     {
       global $objPage;
-      if ( $objPage->isMobile && $objArticle->hideonmobiles || !$objPage->isMobile && $objArticle->hideondesktops )
-      {
+      $hide = false;
+      switch($objArticle->showatdevice) {
+        case 'd':
+          $hide = ($objPage->isMobile);
+          break;
+        case 'm':
+          $hide = !($objPage->isMobile);
+          break;
+      }
+      if ($hide) {
         $objArticle->id = 0;
       }
     }

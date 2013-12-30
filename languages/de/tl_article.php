@@ -14,8 +14,9 @@
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
 
-$GLOBALS['TL_LANG']['tl_article']['mobilecontent_legend'] = 'Einstellungen für Mobil-/Desktopgeräte';
-$GLOBALS['TL_LANG']['tl_article']['hideonmobiles'][0] = 'Auf Mobilgeräten ausblenden';
-$GLOBALS['TL_LANG']['tl_article']['hideonmobiles'][1] = 'Den Artikel auf mobilen Endgeräten wie Smartphones oder Tablets nicht anzeigen.';
-$GLOBALS['TL_LANG']['tl_article']['hideondesktops'][0] = 'Auf Desktopgeräten ausblenden';
-$GLOBALS['TL_LANG']['tl_article']['hideondesktops'][1] = 'Den Artikel auf Desktopgeräten wie PCs oder Notebooks nicht anzeigen.';
+$GLOBALS['TL_LANG']['tl_article']['showatdevice'] = array('Anzeigen auf', 'Den Artikel nur auf den gewählten Endgerätetypen anzeigen.');
+$GLOBALS['TL_LANG']['tl_article']['showatdevicelabels'] = array(
+    '1' => 'allen Geräten',
+    'd' => 'Desktopgeräten (PC, Notebook)',
+    'm' => 'mobilen Geräten (Smartphones, Tablets)'
+  );

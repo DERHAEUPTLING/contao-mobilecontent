@@ -44,33 +44,23 @@ foreach($GLOBALS['TL_DCA']['tl_article']['palettes'] as $palette=>$fields)
 {
   if (is_string($fields))
   {
-    /*echo '<pre>foreach-start\n';
-    var_dump($palette, $fields);
-    echo '</pre>';*/
-    $GLOBALS['TL_DCA']['tl_article']['palettes'][$palette] = str_replace(';{publish_legend',  ';{mobilecontent_legend:hide},hideonmobiles,hideondesktops;{publish_legend', $fields);
+    $GLOBALS['TL_DCA']['tl_article']['palettes'][$palette] = str_replace(';{publish_legend},published',  ';{publish_legend},published,showatdevice', $fields);
   }
 }
 
 // Fields
-$GLOBALS['TL_DCA']['tl_article']['fields']['hideondesktops'] = array
+// Make the published field smaller
+$GLOBALS['TL_DCA']['tl_article']['fields']['published']['eval']['tl_class'] .= " w50";
+$GLOBALS['TL_DCA']['tl_article']['fields']['showatdevice'] = array
 (
-  'label'                   => &$GLOBALS['TL_LANG']['tl_article']['hideondesktops'],
+  'label'                   => &$GLOBALS['TL_LANG']['tl_article']['showatdevice'],
   'exclude'                 => true,
   'filter'                  => true,
-  'inputType'               => 'checkbox',
+  'inputType'               => 'select',
+  'options'                 => array('1','d','m'),
+  'reference'               => &$GLOBALS['TL_LANG']['tl_article']['showatdevicelabels'],
   'eval'                    => array('tl_class'=>'w50'),
-  'sql'                     => 'char(1) NOT NULL default \'\''
-);
-
-
-$GLOBALS['TL_DCA']['tl_article']['fields']['hideonmobiles'] = array
-(
-  'label'                   => &$GLOBALS['TL_LANG']['tl_article']['hideonmobiles'],
-  'exclude'                 => true,
-  'filter'                  => true,
-  'inputType'               => 'checkbox',
-  'eval'                    => array('tl_class'=>'w50'),
-  'sql'                     => 'char(1) NOT NULL default \'\''
+  'sql'                     => 'char(1) NOT NULL default \'1\''
 );
 
 // Class
@@ -85,26 +75,19 @@ class tl_article_mobilecontent extends tl_article {
   public function articleLabelWithMobileVisibility($row, $label)
   {
     $label = $this->addIcon($row, $label);
-    if ($row['hideonmobiles'] || $row['hideondesktops']) {
+    if ($row['showatdevice'] != '1') {
       $classaddition = '';
       $addition = '';
       
-      if ($row['hideonmobiles']) {
+      if ($row['showatdevice'] == 'd') {
         $classaddition .= ' hiddenonmobiles';
-        if ($row['hideondesktops']) {
-          $classaddition .= ' hiddenondesktops';
-          $classaddition .= ' hiddenonmobilesanddesktops';
-          $addition .= $GLOBALS['TL_LANG']['MSC']['hiddenonmobilesanddesktops'];
-        } else {
-          $addition .= $GLOBALS['TL_LANG']['MSC']['hiddenonmobiles'];
-        }
-      } else if ($row['hideondesktops']) {
+        $addition = $GLOBALS['TL_LANG']['MSC']['hiddenonmobiles'];
+      } elseif ($row['showatdevice'] == 'm') {
         $classaddition .= ' hiddenondesktops';
         $addition .= $GLOBALS['TL_LANG']['MSC']['hiddenondesktops'];
       }
       $label .= '<span class="' . ltrim($classaddition) . '" style="padding-left:3px">(' . $addition . ')</span>';
     }
-
     return $label;
   }
 }
