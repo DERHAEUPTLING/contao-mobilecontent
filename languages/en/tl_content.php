@@ -13,8 +13,9 @@
  * 
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
-
-$GLOBALS['TL_LANG']['tl_content']['hideonmobiles'][0] = 'Hide on mobile devices';
-$GLOBALS['TL_LANG']['tl_content']['hideonmobiles'][1] = 'Hide content element on mobile devices like smartphones or tablets.';
-$GLOBALS['TL_LANG']['tl_content']['hideondesktops'][0] = 'Hide on desktop devices';
-$GLOBALS['TL_LANG']['tl_content']['hideondesktops'][1] = 'Hide content element on desktop devices like PCs or notebooks.';
+$GLOBALS['TL_LANG']['tl_content']['showatdevice'] = array('Show at', 'Show content element only at selected user devices..');
+$GLOBALS['TL_LANG']['tl_content']['showatdevicelabels'] = array(
+    '1' => 'all devices',
+    'd' => 'desktop devices (PC, notebook)',
+    'm' => 'mobile devices (smartphones, tablets)'
+  );
