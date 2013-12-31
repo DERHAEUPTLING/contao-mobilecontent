@@ -48,7 +48,8 @@ namespace complanar;
 class MobileInsertTag extends \Controller
 {
   
-  public function replaceMobileInsertTags ($strTag)
+  //$this->$callback[0]->$callback[1]($flag, $strTag, $arrCache[$strTag], $flags, $blnCache, $tags, $arrCache, $_rit, $_cnt); // see #5806
+  public function replaceMobileInsertTags ($flag, $strTag, $strTagCache, $arrFlags, $blnCache, $arrTags, $arrCache, &$_rit, &$_cnt)
   {
     global $objPage;
     $return = false;
@@ -58,10 +59,10 @@ class MobileInsertTag extends \Controller
     $strUrlMobile = $strUrl . $strGlue . 'toggle_view=mobile';
     $strUrlDesktop = $strUrl . $strGlue . 'toggle_view=desktop';
     
-    $arrTag = explode('::', $strTag, 3);
-    $arrCache = array();
+    $flags = explode('|', $strTag);
+    $elements = explode('::', array_shift($flags));
     
-    switch ($arrTag[0])
+    switch ($elements[0])
     {
       // Mobile/desktop toggle
       case 'mobile':
@@ -70,7 +71,7 @@ class MobileInsertTag extends \Controller
         {
           return false;
         }
-        switch ($arrTag[1])
+        switch ($elements[1])
         {
           case 'toggle':
             if ($objPage->isMobile)
@@ -96,13 +97,12 @@ class MobileInsertTag extends \Controller
             break;
           
           case 'alternatives':
-            $alternatives = explode(':', $arrTag[2]);
+            $alternatives = explode(':', $elements[2]);
             if (!is_array($alternatives) && count($alternatives) < 2) {
               $return = false;
             } else {
               $return = ($objPage->isMobile)? $alternatives[1] : $alternatives[0];
             }
-            //$return = print_r($alternatives, true); 
             break;
         }
         break;
@@ -114,50 +114,43 @@ class MobileInsertTag extends \Controller
         
       case 'toggle_url':
         trigger_error('The insert tag "toggle_url" is deprecated. Please use "mobile::toggle_url" instead.', E_USER_NOTICE);
-        $return = $this->replaceMobileInsertTags('mobile::toggle_url');
+        $return = $this->replaceMobileInsertTags(null, 'mobile::toggle_url');
         break;
 
       // Conditional tags (if mobile)
       case 'ifmobile':
       case 'ifndesktop':
-        if ($objPage->isMobile)
+        if (!$objPage->isMobile)
         {
-          global $_rit;
-          global $_cnt;
-          global $tags;
-          //global $arrCache;
           for (; $_rit<$_cnt; $_rit+=3)
           {
-            if ($tags[$_rit+1] == 'endifmobile' || $tags[$_rit+1] == 'endifndesktop')
+            if ($arrTags[$_rit+1] == 'endifmobile' || $arrTags[$_rit+1] == 'endifndesktop')
             {
               break;
             }
           }
+          // Prevent caching
+          $return = null;
         }
-        $return = null;
         break;
 
       // Conditional tags (if not mobile)
       case 'ifnmobile':
       case 'ifdesktop':
-        if (!$objPage->isMobile)
+        if ($objPage->isMobile)
         {
-          global $_rit;
-          global $_cnt;
-          global $tags;
-          //global $arrCache;
           for (; $_rit<$_cnt; $_rit+=3)
           {
-            if ($tags[$_rit+1] == 'endifnmobile' || $tags[$_rit+1] == 'endifdesktop')
+            if ($arrTags[$_rit+1] == 'endifnmobile' || $arrTags[$_rit+1] == 'endifdesktop')
             {
               break;
             }
           }
+          // Prevent caching
+          $return = null;
         }
-        $return = null;
         break;
     }
-    
     return $return;
   }
 }
