@@ -26,7 +26,7 @@
  *
  * PHP version 5
  *
- * @copyright  Holger Teichert 2013
+ * @copyright  2013–2014 Holger Teichert
  * @author     Holger Teichert <post@complanar.de>
  * @package    mobilecontent
  * @license    LGPL
@@ -41,15 +41,14 @@ namespace complanar;
  * Class MobileInsertTag
  *
  * Provide methods to replace some new insert tags
- * @copyright  Holger Teichert 2013
+ * @copyright  2013–2014 Holger Teichert
  * @author     Holger Teichert <post@complanar.de>
- * @package    mobilelayout
+ * @package    mobilecontent
  */
 class MobileInsertTag extends \Controller
 {
   
-  //$this->$callback[0]->$callback[1]($flag, $strTag, $arrCache[$strTag], $flags, $blnCache, $tags, $arrCache, $_rit, $_cnt); // see #5806
-  public function replaceMobileInsertTags ($flag, $strTag, $strTagCache, $arrFlags, $blnCache, $arrTags, $arrCache, &$_rit, &$_cnt)
+  public function replaceMobileInsertTags ($strTag, $blnCache, $tagCache, $arrCache, $tags, $flags, &$_rit, &$_cnt, $flag=null)
   {
     global $objPage;
     $return = false;
@@ -98,9 +97,12 @@ class MobileInsertTag extends \Controller
           
           case 'alternatives':
             $alternatives = explode(':', $elements[2]);
-            if (!is_array($alternatives) && count($alternatives) < 2) {
+            if (!is_array($alternatives) && count($alternatives) < 2) 
+            {
               $return = false;
-            } else {
+            } 
+            else 
+            {
               $return = ($objPage->isMobile)? $alternatives[1] : $alternatives[0];
             }
             break;
@@ -117,31 +119,17 @@ class MobileInsertTag extends \Controller
         $return = $this->replaceMobileInsertTags(null, 'mobile::toggle_url');
         break;
 
-      // Conditional tags (if mobile)
+      // Conditional tags (if mobile, ifnmobile, ifdesktop, ifndesktop)
       case 'ifmobile':
-      case 'ifndesktop':
-        if (!$objPage->isMobile)
-        {
-          for (; $_rit<$_cnt; $_rit+=3)
-          {
-            if ($arrTags[$_rit+1] == 'endifmobile' || $arrTags[$_rit+1] == 'endifndesktop')
-            {
-              break;
-            }
-          }
-          // Prevent caching
-          $return = null;
-        }
-        break;
-
-      // Conditional tags (if not mobile)
       case 'ifnmobile':
       case 'ifdesktop':
-        if ($objPage->isMobile)
+      case 'ifndesktop':
+        if (in_array($elements[0], array('ifmobile', 'ifndesktop')) && !$objPage->isMobile || 
+            in_array($elements[0], array('ifnmobile', 'ifdesktop')) && $objPage->isMobile)
         {
           for (; $_rit<$_cnt; $_rit+=3)
           {
-            if ($arrTags[$_rit+1] == 'endifnmobile' || $arrTags[$_rit+1] == 'endifdesktop')
+            if ($tags[$_rit+1] == 'end'.$elements[0])
             {
               break;
             }
