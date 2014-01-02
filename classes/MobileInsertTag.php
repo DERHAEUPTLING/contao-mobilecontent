@@ -108,17 +108,6 @@ class MobileInsertTag extends \Controller
             break;
         }
         break;
-        
-      case 'toggle_view':
-        trigger_error('The insert tag "toggle_view" is deprecated. Please use "mobile::toggle" instead.', E_USER_NOTICE);
-        $return = $this->replaceMobileInsertTags('mobile::toggle');
-        break;
-        
-      case 'toggle_url':
-        trigger_error('The insert tag "toggle_url" is deprecated. Please use "mobile::toggle_url" instead.', E_USER_NOTICE);
-        $return = $this->replaceMobileInsertTags(null, 'mobile::toggle_url');
-        break;
-
       // Conditional tags (if mobile, ifnmobile, ifdesktop, ifndesktop)
       case 'ifmobile':
       case 'ifnmobile':
