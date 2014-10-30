@@ -47,20 +47,34 @@ namespace complanar;
  */
 class MobileInsertTag extends \Controller
 {
-  
-  public function replaceMobileInsertTags ($strTag, $blnCache, $tagCache, $arrCache, $tags, $flags, &$_rit, &$_cnt, $flag=null)
+  // if known flag:  ($strTag, $blnCache, $tagCache, $flags, $tags, $arrCache, $_rit, $_cnt); // see #6672
+  // if unkown flag: ($flag, $strTag, $tagCache, $flags, $blnCache, $tags, $arrCache, $_rit, $_cnt); // see #5806
+  public function replaceMobileInsertTags ($strTag, $blnCache, $tagCache, $flags, $tags, $arrCache, &$_rit, &$_cnt, &$flag=null)
   {
+    // Decide if there was an unkown flag of contao or not
+    if (null != $flag) {
+      // Seems to have an unkown flag passed, we must reorder the arguments
+      $flag = func_get_arg(0);
+      $strTag = func_get_arg(1);
+      // $tagCache = func_get_arg(2);
+      // $flags = func_get_arg(3);
+      $blnCache = func_get_arg(4);
+      $tags =  func_get_arg(5);
+      $arrCache = func_get_arg(6);
+      $_rit &= func_get_arg(7);
+      $_cnt &= func_get_arg(8);
+    }
     global $objPage;
     $return = false;
-    
+
     $strUrl = $this->Environment->request;
     $strGlue = (strpos($strUrl, '?') === false) ? '?' : '&amp;';
     $strUrlMobile = $strUrl . $strGlue . 'toggle_view=mobile';
     $strUrlDesktop = $strUrl . $strGlue . 'toggle_view=desktop';
-    
+
     $flags = explode('|', $strTag);
     $elements = explode('::', array_shift($flags));
-    
+
     switch ($elements[0])
     {
       // Mobile/desktop toggle
@@ -82,26 +96,26 @@ class MobileInsertTag extends \Controller
               $return = '<a href="' . $strUrlMobile . '" title="' . specialchars($GLOBALS['TL_LANG']['MSC']['toggleMobile'][1]) . '" class="toggle_view mobile_toggle mobile">' . $GLOBALS['TL_LANG']['MSC']['toggleMobile'][0] . '</a>';
             }
             break;
-          
+
           case 'toggle_url':
             $return = ($objPage->isMobile)? $strUrlDesktop : $strUrlMobile;
             break;
-          
+
           case 'toggle_text':
             $return = ($objPage->isMobile)? $GLOBALS['TL_LANG']['MSC']['toggleDesktop'][0] : $GLOBALS['TL_LANG']['MSC']['toggleMobile'][0];
             break;
-          
+
           case 'toggle_title':
             $return = ($objPage->isMobile)? $GLOBALS['TL_LANG']['MSC']['toggleDesktop'][1] : $GLOBALS['TL_LANG']['MSC']['toggleMobile'][1];
             break;
-          
+
           case 'alternatives':
             $alternatives = explode(':', $elements[2]);
-            if (!is_array($alternatives) && count($alternatives) < 2) 
+            if (!is_array($alternatives) && count($alternatives) < 2)
             {
               $return = false;
-            } 
-            else 
+            }
+            else
             {
               $return = ($objPage->isMobile)? $alternatives[1] : $alternatives[0];
             }
@@ -113,7 +127,7 @@ class MobileInsertTag extends \Controller
       case 'ifnmobile':
       case 'ifdesktop':
       case 'ifndesktop':
-        if (in_array($elements[0], array('ifmobile', 'ifndesktop')) && !$objPage->isMobile || 
+        if (in_array($elements[0], array('ifmobile', 'ifndesktop')) && !$objPage->isMobile ||
             in_array($elements[0], array('ifnmobile', 'ifdesktop')) && $objPage->isMobile)
         {
           for (; $_rit<$_cnt; $_rit+=3)

@@ -44,7 +44,7 @@ foreach($GLOBALS['TL_DCA']['tl_content']['palettes'] as $palette=>$fields)
 {
   if (is_string($fields))
   {
-    $GLOBALS['TL_DCA']['tl_content']['palettes'][$palette] = str_replace('invisible',  'invisible,showatdevice', $fields);
+    $GLOBALS['TL_DCA']['tl_content']['palettes'][$palette] = str_replace(',invisible',  ',invisible,showatdevice', $fields);
   }
 }
 
@@ -76,7 +76,7 @@ class tl_content_mobilecontent extends tl_content {
     if ($row['showatdevice'] != '1') {
       $classaddition = '';
       $addition = '';
-      
+
       if ($row['showatdevice'] == 'd') {
         $classaddition .= ' hiddenonmobiles';
         $addition = $GLOBALS['TL_LANG']['MSC']['hiddenonmobiles'];
@@ -92,5 +92,5 @@ class tl_content_mobilecontent extends tl_content {
 
     return $label;
   }
-  
+
 }

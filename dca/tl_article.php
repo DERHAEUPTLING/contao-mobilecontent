@@ -44,7 +44,7 @@ foreach($GLOBALS['TL_DCA']['tl_article']['palettes'] as $palette=>$fields)
 {
   if (is_string($fields))
   {
-    $GLOBALS['TL_DCA']['tl_article']['palettes'][$palette] = str_replace(';{publish_legend},published',  ';{publish_legend},published,showatdevice', $fields);
+    $GLOBALS['TL_DCA']['tl_article']['palettes'][$palette] = str_replace(',published',  ',published,showatdevice', $fields);
   }
 }
 
@@ -78,7 +78,7 @@ class tl_article_mobilecontent extends tl_article {
     if ($row['showatdevice'] != '1') {
       $classaddition = '';
       $addition = '';
-      
+
       if ($row['showatdevice'] == 'd') {
         $classaddition .= ' hiddenonmobiles';
         $addition = $GLOBALS['TL_LANG']['MSC']['hiddenonmobiles'];

@@ -38,3 +38,11 @@ This is normally the title of the standard toggle link created by ´mobile::togg
 ### mobile::alternatives::alternative_desktop:alternative_mobile
 
 This insert tags shows only one of the two alternatives `alternative_desktop` or `alternative_mobile` depending on which type of view is currently active.
+
+### ifmobile […] endifmobile, ifndesktop […] endifndesktop
+
+The content between the start and and tag is skipped if it appears on a desktop page.
+
+### ifdesktop […] endifdesktop, ifnmobile […] endnifmobile
+
+The content between the start and and tag is skipped if it appears on a mobile page.
