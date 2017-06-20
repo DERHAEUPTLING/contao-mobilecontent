@@ -24,9 +24,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Derhaeuptling\\MobileContent\\": [
-                "system/modules/mobilecontent/src"
-            ]
+            "Derhaeuptling\\MobileContent\\": "src/"
         }
     },
     "extra": {
