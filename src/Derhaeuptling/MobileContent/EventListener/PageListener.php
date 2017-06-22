@@ -2,7 +2,6 @@
 
 namespace Derhaeuptling\MobileContent\EventListener;
 
-use Contao\Cache;
 use Contao\Config;
 use Contao\Database;
 use Contao\Date;
@@ -21,15 +20,17 @@ class PageListener
      */
     public function onGetPageLayout(PageModel $page, LayoutModel &$layout)
     {
-        if ($page->isMobile || !Cache::has('mobile_domain')) {
+        if (($rootPage = PageModel::findByPk($page->rootId)) === null || !$rootPage->enableMobileDns) {
             return;
         }
 
-        $page->isMobile = (bool) Cache::get('mobile_domain');
+        $page->isMobile = Environment::get('host') === $rootPage->mobileDns;
 
-        // Set the mobile layout if it's not set already
-        if ($page->mobileLayout && (int) $page->mobileLayout !== (int) $layout->id) {
+        // Set the correct layout if it's not set already
+        if ($page->isMobile && $page->mobileLayout && (int) $page->mobileLayout !== (int) $layout->id) {
             $layout = LayoutModel::findByPk($page->mobileLayout);
+        } elseif (!$page->isMobile && $page->layout && (int) $page->layout !== (int) $layout->id) {
+            $layout = LayoutModel::findByPk($page->layout);
         }
     }
 
@@ -52,12 +53,7 @@ class PageListener
             }
         }
 
-        // Mark the page as mobile
-        if (($page = $this->findRootPage(Environment::get('host'), $language)) !== null) {
-            Cache::set('mobile_domain', true);
-        }
-
-        return $page;
+        return $this->findRootPage(Environment::get('host'), $language);
     }
 
     /**
