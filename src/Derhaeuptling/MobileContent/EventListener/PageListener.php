@@ -6,9 +6,11 @@ use Contao\Config;
 use Contao\Database;
 use Contao\Date;
 use Contao\Environment;
+use Contao\FrontendTemplate;
 use Contao\Input;
 use Contao\LayoutModel;
 use Contao\PageModel;
+use Haste\Util\Debug;
 
 class PageListener
 {
@@ -32,6 +34,40 @@ class PageListener
         } elseif (!$page->isMobile && $page->layout && (int) $page->layout !== (int) $layout->id) {
             $layout = LayoutModel::findByPk($page->layout);
         }
+
+        $this->addSwitchBar($rootPage);
+    }
+
+    /**
+     * Adds the switch bar to the page
+     *
+     * @param PageModel $rootPage
+     */
+    private function addSwitchBar(PageModel $rootPage)
+    {
+        $url = preg_replace('@https?://[^/]+@', '', Environment::get('uri'));
+
+        $template = new FrontendTemplate('mobile_content');
+        $template->desktopUrl = ($rootPage->useSSL ? 'https://' : 'http://') . $rootPage->desktopDns . $url;
+        $template->mobileUrl = ($rootPage->useSSL ? 'https://' : 'http://') . $rootPage->mobileDns . $url;
+
+        $GLOBALS['TL_CSS'][] = Debug::uncompressedFile('system/modules/mobilecontent/assets/styles.min.css');
+        $GLOBALS['TL_JAVASCRIPT'][] = Debug::uncompressedFile('system/modules/mobilecontent/assets/scripts.min.js');
+        $GLOBALS['TL_BODY'][] = $template->parse();
+    }
+
+    /**
+     * On initialize the system
+     */
+    public function onInitializeSystem()
+    {
+        if (TL_MODE !== 'FE' || ($page = $this->getCurrentRootPage()) === null || Environment::get('host') !== $page->mobileDns) {
+            return;
+        }
+
+        // Override the domain name for mobile pages to avoid 404 error
+        $page->desktopDns = $page->dns;
+        $page->dns = $page->mobileDns;
     }
 
     /**
@@ -40,6 +76,16 @@ class PageListener
      * @return PageModel|null
      */
     public function onGetRootPageFromUrl()
+    {
+        return $this->getCurrentRootPage();
+    }
+
+    /**
+     * Get the current root page
+     *
+     * @return PageModel|null
+     */
+    private function getCurrentRootPage()
     {
         // Determine the language
         if (Config::get('addLanguageToUrl') && !empty($_GET['language'])) {

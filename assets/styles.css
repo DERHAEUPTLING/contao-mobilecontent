@@ -1,0 +1,17 @@
+#wrapper {
+    padding-top: 20px;
+}
+
+#mobile-toggler {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 20px;
+    background: #ff0000;
+    text-align: center;
+}
+
+#mobile-toggler a {
+    color: #fff;
+}
