@@ -1,1 +1,1 @@
-#wrapper{padding-top:20px}#mobile-toggler{position:fixed;left:0;top:0;right:0;height:20px;background:red;text-align:center}#mobile-toggler a{color:#fff}
+body.mobile-toggler-enabled #wrapper{padding-top:20px}#mobile-toggler{display:none;position:fixed;left:0;top:0;right:0;height:20px;background:red;text-align:center}body.mobile-toggler-enabled #mobile-toggler{display:block}#mobile-toggler a{color:#fff}

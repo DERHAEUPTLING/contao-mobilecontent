@@ -1,4 +1,4 @@
-<div id="mobile-toggler">
+<div id="mobile-toggler" data-is-mobile="<?= $this->isMobile ? 1 : 0 ?>">
     <a href="<?= ampersand($this->desktopUrl) ?>" title="<?= specialchars($GLOBALS['TL_LANG']['MSC']['toggleDesktop'][0]) ?>" data-toggle="desktop"><?= $GLOBALS['TL_LANG']['MSC']['toggleDesktop'][1] ?></a>
     <a href="<?= ampersand($this->mobileUrl) ?>" title="<?= specialchars($GLOBALS['TL_LANG']['MSC']['toggleMobile'][0]) ?>" data-toggle="mobile"><?= $GLOBALS['TL_LANG']['MSC']['toggleMobile'][1] ?></a>
 </div>

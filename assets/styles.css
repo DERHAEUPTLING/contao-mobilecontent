@@ -1,8 +1,9 @@
-#wrapper {
+body.mobile-toggler-enabled #wrapper {
     padding-top: 20px;
 }
 
 #mobile-toggler {
+    display: none;
     position: fixed;
     left: 0;
     top: 0;
@@ -10,6 +11,10 @@
     height: 20px;
     background: #ff0000;
     text-align: center;
+}
+
+body.mobile-toggler-enabled #mobile-toggler {
+    display: block;
 }
 
 #mobile-toggler a {

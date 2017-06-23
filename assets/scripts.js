@@ -7,5 +7,19 @@
  * Initialize the toggler
  */
 document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('mobile-toggler').querySelector('[data-toggle="' + (isMobile.any ? 'mobile' : 'desktop') + '"]').style.display = 'none';
+    var toggler = document.getElementById('mobile-toggler');
+    var isMobileDomain = !!parseInt(toggler.dataset.isMobile, 10);
+
+    // Hide the toggler completely if we are on the correct domain for the device
+    if ((isMobileDomain && !isMobile.any) || (!isMobileDomain && isMobile.any)) {
+        document.body.classList.add('mobile-toggler-enabled');
+
+        // Show only the link to desktop if we are on mobile domain with desktop device
+        if (isMobileDomain && !isMobile.any) {
+            toggler.querySelector('[data-toggle="mobile"]').style.display = 'none';
+        } else if (!isMobileDomain && isMobile.any) {
+            // Show only the link to mobile if we are on desktop domain with mobile device
+            toggler.querySelector('[data-toggle="desktop"]').style.display = 'none';
+        }
+    }
 });

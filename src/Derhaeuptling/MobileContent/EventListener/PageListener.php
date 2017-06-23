@@ -50,6 +50,7 @@ class PageListener
         $template = new FrontendTemplate('mobile_content');
         $template->desktopUrl = ($rootPage->useSSL ? 'https://' : 'http://') . $rootPage->desktopDns . $url;
         $template->mobileUrl = ($rootPage->useSSL ? 'https://' : 'http://') . $rootPage->mobileDns . $url;
+        $template->isMobile = Environment::get('host') === $rootPage->mobileDns;
 
         $GLOBALS['TL_CSS'][] = Debug::uncompressedFile('system/modules/mobilecontent/assets/styles.min.css');
         $GLOBALS['TL_JAVASCRIPT'][] = Debug::uncompressedFile('system/modules/mobilecontent/assets/scripts.min.js');
