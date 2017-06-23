@@ -2,6 +2,8 @@
 
 namespace Derhaeuptling\MobileContent\EventListener;
 
+use Contao\Environment;
+use Contao\PageModel;
 use Derhaeuptling\MobileContent\VisibilityManager;
 use Haste\Util\Url;
 
@@ -119,6 +121,12 @@ class InsertTagsListener
      */
     private function getToggleUrl($isMobile)
     {
+        if (($rootPage = PageModel::findByPk($GLOBALS['objPage']->rootId)) !== null && $rootPage->enableMobileDns) {
+            $url = preg_replace('@https?://[^/]+@', '', Environment::get('uri'));
+
+            return ($rootPage->useSSL ? 'https://' : 'http://') . ($isMobile ? $rootPage->desktopDns : $rootPage->mobileDns) . $url;
+        }
+
         return Url::addQueryString('toggle_view='.($isMobile ? 'desktop' : 'mobile'));
     }
 
