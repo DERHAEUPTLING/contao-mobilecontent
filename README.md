@@ -46,3 +46,22 @@ The content between the start and and tag is skipped if it appears on a desktop 
 ### ifdesktop […] endifdesktop, ifnmobile […] endnifmobile
 
 The content between the start and and tag is skipped if it appears on a mobile page.
+
+
+## Developers
+
+To check if the current page is mobile:
+
+```php
+$GLOBALS['objPage']->isMobile
+```
+
+Example for the templates:
+
+```php
+<?php if ($GLOBALS['objPage']->isMobile): ?>
+    mobile content
+<?php else: ?>
+    desktop content
+<?php endif; ?>
+```

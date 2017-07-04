@@ -3,7 +3,6 @@
 namespace Derhaeuptling\MobileContent\EventListener;
 
 use Contao\Model;
-use Derhaeuptling\MobileContent\VisibilityManager;
 
 class ElementListener
 {
@@ -18,9 +17,33 @@ class ElementListener
     public function onIsVisibleElement(Model $element, $visible)
     {
         if (TL_MODE === 'FE' && $visible) {
-            $visible = VisibilityManager::getElementVisibility($element);
+            $visible = $this->getElementVisibility($element);
         }
 
         return $visible;
+    }
+
+    /**
+     * Get the element visibility
+     *
+     * @param Model $element
+     *
+     * @return bool
+     */
+    private function getElementVisibility(Model $element)
+    {
+        $isMobile = $GLOBALS['objPage']->isMobile;
+
+        // Hide on mobile
+        if ($isMobile && $element->hideOnMobile) {
+            return false;
+        }
+
+        // Hide on desktop
+        if (!$isMobile && $element->hideOnDesktop) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -4,7 +4,6 @@ namespace Derhaeuptling\MobileContent\EventListener;
 
 use Contao\Environment;
 use Contao\PageModel;
-use Derhaeuptling\MobileContent\VisibilityManager;
 use Haste\Util\Url;
 
 class InsertTagsListener
@@ -26,7 +25,7 @@ class InsertTagsListener
     public function onReplace($tag, $isCache, $value, array $flags, array $tags, array $cache, &$_rit, &$_cnt)
     {
         $chunks   = trimsplit('::', $tag);
-        $isMobile = VisibilityManager::isMobile();
+        $isMobile = $GLOBALS['objPage']->isMobile;
 
         switch ($chunks[0]) {
             case 'mobile':
