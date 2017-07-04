@@ -1,4 +1,9 @@
-<?php 
+<?php
+
+/**
+ * Frontend modules
+ */
+$GLOBALS['FE_MOD']['application']['mobile_switch'] = 'Derhaeuptling\MobileContent\FrontendModule\MobileSwitchModule';
 
 /**
  * Hooks

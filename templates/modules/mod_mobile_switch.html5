@@ -1,4 +1,12 @@
+<?php $this->extend('block_unsearchable'); ?>
+
+<?php $this->block('content'); ?>
+
+<?php $GLOBALS['TL_JAVASCRIPT'][] = \Haste\Util\Debug::uncompressedFile('system/modules/mobilecontent/assets/scripts.min.js'); ?>
+
 <div id="mobile-toggler" data-is-mobile="<?= $this->isMobile ? 1 : 0 ?>">
     <a href="<?= ampersand($this->desktopUrl) ?>" title="<?= specialchars($GLOBALS['TL_LANG']['MSC']['toggleDesktop'][0]) ?>" data-toggle="desktop"><?= $GLOBALS['TL_LANG']['MSC']['toggleDesktop'][1] ?></a>
     <a href="<?= ampersand($this->mobileUrl) ?>" title="<?= specialchars($GLOBALS['TL_LANG']['MSC']['toggleMobile'][0]) ?>" data-toggle="mobile"><?= $GLOBALS['TL_LANG']['MSC']['toggleMobile'][1] ?></a>
 </div>
+
+<?php $this->endblock(); ?>

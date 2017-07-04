@@ -6,11 +6,9 @@ use Contao\Config;
 use Contao\Database;
 use Contao\Date;
 use Contao\Environment;
-use Contao\FrontendTemplate;
 use Contao\Input;
 use Contao\LayoutModel;
 use Contao\PageModel;
-use Haste\Util\Debug;
 
 class PageListener
 {
@@ -34,27 +32,6 @@ class PageListener
         } elseif (!$page->isMobile && $page->layout && (int) $page->layout !== (int) $layout->id) {
             $layout = LayoutModel::findByPk($page->layout);
         }
-
-        $this->addSwitchBar($rootPage);
-    }
-
-    /**
-     * Adds the switch bar to the page
-     *
-     * @param PageModel $rootPage
-     */
-    private function addSwitchBar(PageModel $rootPage)
-    {
-        $url = preg_replace('@https?://[^/]+@', '', Environment::get('uri'));
-
-        $template = new FrontendTemplate('mobile_content');
-        $template->desktopUrl = ($rootPage->useSSL ? 'https://' : 'http://') . $rootPage->desktopDns . $url;
-        $template->mobileUrl = ($rootPage->useSSL ? 'https://' : 'http://') . $rootPage->mobileDns . $url;
-        $template->isMobile = Environment::get('host') === $rootPage->mobileDns;
-
-        $GLOBALS['TL_CSS'][] = Debug::uncompressedFile('system/modules/mobilecontent/assets/styles.min.css');
-        $GLOBALS['TL_JAVASCRIPT'][] = Debug::uncompressedFile('system/modules/mobilecontent/assets/scripts.min.js');
-        $GLOBALS['TL_BODY'][] = $template->parse();
     }
 
     /**

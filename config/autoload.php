@@ -12,6 +12,6 @@ if (class_exists('NamespaceClassLoader')) {
  */
 if (class_exists('TemplateLoader')) {
     TemplateLoader::addFiles([
-        'mobile_content' => 'system/modules/mobilecontent/templates'
+        'mod_mobile_switch' => 'system/modules/mobilecontent/templates/modules',
     ]);
 }

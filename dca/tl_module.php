@@ -13,6 +13,11 @@ $GLOBALS['TL_DCA']['tl_module']['list']['operations']['toggleOnDesktop'] = &$GLO
 $GLOBALS['TL_DCA']['tl_module']['list']['operations']['toggleOnMobile'] = &$GLOBALS['TL_DCA']['tl_article']['list']['operations']['toggleOnMobile'];
 
 /**
+ * Add palettes
+ */
+$GLOBALS['TL_DCA']['tl_module']['palettes']['mobile_switch'] = '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+
+/**
  * Extend palettes
  */
 foreach ($GLOBALS['TL_DCA']['tl_module']['palettes'] as $k => $v) {
