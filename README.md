@@ -5,6 +5,7 @@ Mobile Content Module for Contao 3
 This extensions lets you hide specific content elements on mobile or desktop devices.
 Additionally it enables some new insert tags:
 
+
 ## Hide Content
 
 This is as easy as it can be. Just activate the wanted checkbox at the content elements edit page and you're done.
@@ -13,7 +14,8 @@ This is as easy as it can be. Just activate the wanted checkbox at the content e
 
 ### mobile::toggle
 
-Adds a link to toggle between desktop and mobile view. This link carries the classes `mobile_toggle` and `desktop` or 'mobile' corresponding to the destination of the link (not the type of page it is on!).
+Adds a link to toggle between desktop and mobile view. This link carries the classes `mobile_toggle` and `desktop` 
+or 'mobile' corresponding to the destination of the link (not the type of page it is on!).
 
 ### mobile::toggle_url
 
@@ -37,7 +39,8 @@ This is normally the title of the standard toggle link created by ´mobile::togg
 
 ### mobile::alternatives::alternative_desktop:alternative_mobile
 
-This insert tags shows only one of the two alternatives `alternative_desktop` or `alternative_mobile` depending on which type of view is currently active.
+This insert tags shows only one of the two alternatives `alternative_desktop` or `alternative_mobile` depending on 
+which type of view is currently active.
 
 ### ifmobile […] endifmobile, ifndesktop […] endifndesktop
 
@@ -46,6 +49,12 @@ The content between the start and and tag is skipped if it appears on a desktop 
 ### ifdesktop […] endifdesktop, ifnmobile […] endnifmobile
 
 The content between the start and and tag is skipped if it appears on a mobile page.
+
+
+## Auto-redirect
+
+When the auto-redirect is enabled, right before the visitor is redirected to the correct version of the page
+the script adds the `mobile-content-redirecting` CSS class to the `<body>` element.
 
 
 ## Developers
