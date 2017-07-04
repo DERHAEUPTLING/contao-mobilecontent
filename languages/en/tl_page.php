@@ -5,6 +5,7 @@
  */
 $GLOBALS['TL_LANG']['tl_page']['enableMobileDns'] = ['Enable mobile DNS', 'Enable a different DNS settings for mobile devices.'];
 $GLOBALS['TL_LANG']['tl_page']['mobileDns'] = ['Mobile domain name', 'Please enter the domain name for mobile devices.'];
+$GLOBALS['TL_LANG']['tl_page']['mobileDnsAutoRedirect'] = ['Auto redirect to correct version', 'Auto redirect the visitors to the correct version (e.g. mobile visitor will be redirected to mobile domain).'];
 
 /**
  * Miscellaneous

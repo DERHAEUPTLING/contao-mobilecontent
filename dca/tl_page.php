@@ -8,7 +8,7 @@
     ->applyToPalette('root', 'tl_page');
 
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'enableMobileDns';
-$GLOBALS['TL_DCA']['tl_page']['subpalettes']['enableMobileDns'] = 'mobileDnsExplanation,mobileDns';
+$GLOBALS['TL_DCA']['tl_page']['subpalettes']['enableMobileDns'] = 'mobileDnsExplanation,mobileDns,mobileDnsAutoRedirect';
 
 /**
  * Add fields
@@ -34,6 +34,14 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['mobileDns'] = [
     ],
     'save_callback' => [['tl_page', 'checkDns']],
     'sql'           => "varchar(255) NOT NULL default ''",
+];
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['mobileDnsAutoRedirect'] = [
+    'label'         => &$GLOBALS['TL_LANG']['tl_page']['mobileDnsAutoRedirect'],
+    'exclude'       => true,
+    'inputType'     => 'checkbox',
+    'eval'          => ['tl_class' => 'w50 m12'],
+    'sql'           => "char(1) NOT NULL default ''",
 ];
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['mobileDnsExplanation'] = [

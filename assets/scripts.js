@@ -27,6 +27,20 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // Auto redirect the user to the correct URL
+        if (toggler.dataset.redirectDesktop && toggler.dataset.redirectMobile) {
+            var target = isMobile.any ? toggler.dataset.redirectMobile : toggler.dataset.redirectDesktop;
+
+            if (window.location.host !== target) {
+                // Add the CSS class
+                if (document.body.classList) {
+                    document.body.classList.add('mobile-content-redirecting');
+                }
+
+                window.location = target;
+            }
+        }
+
         // Show the toggler
         toggler.style.display = 'block';
 
