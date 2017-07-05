@@ -31,7 +31,10 @@
         "contao": {
             "sources": {
                 "": "system/modules/mobilecontent"
-            }
+            },
+            "runonce": [
+                "system/modules/mobilecontent/config/upgrade.php"
+            ]
         }
     }
 }
