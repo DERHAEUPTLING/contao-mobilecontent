@@ -10,4 +10,7 @@ $GLOBALS['TL_LANG']['tl_page']['mobileDnsAutoRedirect'] = ['Auto redirect to cor
 /**
  * Miscellaneous
  */
-$GLOBALS['TL_LANG']['tl_page']['mobileDnsExplanation'] = 'Please make sure that you enter the regular domain name in the DNS settings above in order the feature to work correctly. You should also consider adding the mobile/desktop switch front end module to the page layout.';
+$GLOBALS['TL_LANG']['tl_page']['mobileDnsExplanations'] = [
+    'Please make sure that you enter the regular domain name in the DNS settings above in order the feature to work correctly.',
+    'You should also consider adding the mobile/desktop switch front end module to the page layout.'
+];
