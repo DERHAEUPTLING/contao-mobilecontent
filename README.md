@@ -2,7 +2,9 @@
 
 This extension lets you show or hide specific articles, content elements and frontend moduleson mobile or desktop devices.
 
-The extension is compatible with Contao 3 and 4.
+The extension is compatible with Contao 3 and 4. It works out of the box by recognizing the visitor user agent
+and displaying the appropriate content. For use with CDN that caches the pages you may want to enable a separate 
+mobile domain though (see explanation below).
 
 
 ## Toggle the content
