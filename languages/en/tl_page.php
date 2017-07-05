@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * mobilecontent extension for Contao Open Source CMS
+ *
+ * @author  Kamil Kuzminski <https://github.com/qzminski>
+ * @license LGPL
+ */
+
+/**
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_page']['enableMobileDns'] = ['Enable mobile DNS', 'Enable a different DNS settings for mobile devices.'];

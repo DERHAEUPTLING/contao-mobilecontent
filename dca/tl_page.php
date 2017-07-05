@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * mobilecontent extension for Contao Open Source CMS
+ *
+ * @author  Kamil Kuzminski <https://github.com/qzminski>
+ * @license LGPL
+ */
+
+/**
  * Extend palettes
  */
 \Haste\Dca\PaletteManipulator::create()

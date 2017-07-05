@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * mobilecontent extension for Contao Open Source CMS
+ *
+ * @author  Kamil Kuzminski <https://github.com/qzminski>
+ * @license LGPL
+ */
+
+/**
  * Register PSR-0 namespace
  */
 if (class_exists('NamespaceClassLoader')) {
