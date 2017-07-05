@@ -19,11 +19,12 @@
  * Initialize the toggler
  */
 document.addEventListener('DOMContentLoaded', function () {
-    var cookie = 'mobile-content-dismiss';
+    var cookieDismiss = 'mobile-content-dismiss';
+    var cookieRedirect = 'mobile-content-redirect';
 
-    // The alert has been already dismissed
-    if (Cookies.get(cookie)) {
-        return;
+    // Set the redirect cookie
+    if (window.location.hash === '#mobile-toggle') {
+        Cookies.set(cookieRedirect, 1);
     }
 
     Array.from(document.querySelectorAll('[data-mobile-toggler]')).forEach(function (toggler) {
@@ -34,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Auto redirect the user to the correct URL
-        if (toggler.dataset.redirectDesktop && toggler.dataset.redirectMobile) {
+        // Auto redirect the user to the correct URL if it has not decided explicitly yet (no cookie)
+        if (toggler.dataset.redirectDesktop && toggler.dataset.redirectMobile && !Cookies.get(cookieRedirect)) {
             var target = isMobile.any ? toggler.dataset.redirectMobile : toggler.dataset.redirectDesktop;
 
             if (window.location.host !== target) {
@@ -46,6 +47,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 window.location = target;
             }
+        }
+
+        // The alert has been already dismissed
+        if (Cookies.get(cookieDismiss)) {
+            return;
         }
 
         // Show the toggler
@@ -64,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
                 toggler.style.display = 'none';
-                Cookies.set(cookie, 1, { expires: 30 });
+                Cookies.set(cookieDismiss, 1, { expires: 30 });
             });
         });
     });

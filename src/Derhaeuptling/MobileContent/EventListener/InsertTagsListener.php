@@ -132,6 +132,11 @@ class InsertTagsListener
         if (($rootPage = PageModel::findByPk($GLOBALS['objPage']->rootId)) !== null && $rootPage->enableMobileDns) {
             $url = preg_replace('@https?://[^/]+@', '', Environment::get('uri'));
 
+            // Add the indicator for JavaScript
+            if ($rootPage->mobileDnsAutoRedirect) {
+                $url .= '#mobile-toggle';
+            }
+
             return ($rootPage->useSSL ? 'https://' : 'http://') . ($isMobile ? $rootPage->desktopDns : $rootPage->mobileDns) . $url;
         }
 

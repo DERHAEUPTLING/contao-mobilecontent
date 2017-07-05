@@ -31,6 +31,11 @@ for their device.
 When the auto-redirect is enabled, right before the visitor is redirected to the correct version of the page
 the script adds the `mobile-content-redirecting` CSS class to the `<body>` element.
 
+**Note:** when this feature is enabled, the toggle links get the extra hash parameter to the URL. When the user
+visits a page with that parameter (e.g. by clicking the link) the cookie will be set that prevents from yet another
+redirect back. This allows e.g. the mobile visitors to be redirected to the mobile version of the website on first
+page view but they can still view the desktop version by explicitly clicking the link.
+
 
 ## Insert tags
 
