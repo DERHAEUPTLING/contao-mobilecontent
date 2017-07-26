@@ -12,29 +12,30 @@
 /**
  * Add operations
  */
-$GLOBALS['TL_DCA']['tl_article']['list']['operations']['toggleOnDesktop'] = [
-    'label'                => &$GLOBALS['TL_LANG']['tl_article']['toggleOnDesktop'],
-    'attributes'           => 'onclick="Backend.getScrollOffset();"',
-    'haste_ajax_operation' => [
-        'field'   => 'hideOnDesktop',
-        'options' => [
-            ['value' => '', 'icon' => 'system/modules/mobilecontent/assets/desktop-visible.svg'],
-            ['value' => '1', 'icon' => 'system/modules/mobilecontent/assets/desktop-invisible.svg'],
+array_insert($GLOBALS['TL_DCA']['tl_article']['list']['operations'], 6, [
+    'toggleOnDesktop' => [
+        'label'                => &$GLOBALS['TL_LANG']['tl_article']['toggleOnDesktop'],
+        'attributes'           => 'onclick="Backend.getScrollOffset();"',
+        'haste_ajax_operation' => [
+            'field'   => 'hideOnDesktop',
+            'options' => [
+                ['value' => '', 'icon' => 'system/modules/mobilecontent/assets/desktop-visible.svg'],
+                ['value' => '1', 'icon' => 'system/modules/mobilecontent/assets/desktop-invisible.svg'],
+            ],
         ],
     ],
-];
-
-$GLOBALS['TL_DCA']['tl_article']['list']['operations']['toggleOnMobile'] = [
-    'label'                => &$GLOBALS['TL_LANG']['tl_article']['toggleOnMobile'],
-    'attributes'           => 'onclick="Backend.getScrollOffset();"',
-    'haste_ajax_operation' => [
-        'field'   => 'hideOnMobile',
-        'options' => [
-            ['value' => '', 'icon' => 'system/modules/mobilecontent/assets/mobile-visible.svg'],
-            ['value' => '1', 'icon' => 'system/modules/mobilecontent/assets/mobile-invisible.svg'],
+    'toggleOnMobile' => [
+        'label'                => &$GLOBALS['TL_LANG']['tl_article']['toggleOnMobile'],
+        'attributes'           => 'onclick="Backend.getScrollOffset();"',
+        'haste_ajax_operation' => [
+            'field'   => 'hideOnMobile',
+            'options' => [
+                ['value' => '', 'icon' => 'system/modules/mobilecontent/assets/mobile-visible.svg'],
+                ['value' => '1', 'icon' => 'system/modules/mobilecontent/assets/mobile-invisible.svg'],
+            ],
         ],
     ],
-];
+]);
 
 /**
  * Extend palettes

@@ -18,8 +18,10 @@
 /**
  * Add operations
  */
-$GLOBALS['TL_DCA']['tl_content']['list']['operations']['toggleOnDesktop'] = &$GLOBALS['TL_DCA']['tl_article']['list']['operations']['toggleOnDesktop'];
-$GLOBALS['TL_DCA']['tl_content']['list']['operations']['toggleOnMobile'] = &$GLOBALS['TL_DCA']['tl_article']['list']['operations']['toggleOnMobile'];
+array_insert($GLOBALS['TL_DCA']['tl_content']['list']['operations'], 5, [
+    'toggleOnDesktop' => &$GLOBALS['TL_DCA']['tl_article']['list']['operations']['toggleOnDesktop'],
+    'toggleOnMobile' => &$GLOBALS['TL_DCA']['tl_article']['list']['operations']['toggleOnMobile'],
+]);
 
 /**
  * Extend palettes
