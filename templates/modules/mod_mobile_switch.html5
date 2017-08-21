@@ -2,7 +2,11 @@
 
 <?php $this->block('content'); ?>
 
-<?php $GLOBALS['TL_JAVASCRIPT'][] = \Haste\Util\Debug::uncompressedFile('system/modules/mobilecontent/assets/scripts.min.js'); ?>
+<?php
+if (!isset($GLOBALS['TL_HEAD']['mobilecontent'])) {
+    $GLOBALS['TL_HEAD']['mobilecontent'] = sprintf('<script src="%s" defer></script>', \Haste\Util\Debug::uncompressedFile('system/modules/mobilecontent/assets/scripts.min.js'));
+}
+?>
 
 <div style="display:none;"
      data-mobile-toggler="<?= $this->isMobile ? 'mobile' : 'desktop' ?>"
