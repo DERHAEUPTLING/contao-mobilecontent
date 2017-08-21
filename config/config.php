@@ -22,3 +22,9 @@ $GLOBALS['TL_HOOKS']['getRootPageFromUrl'][] = ['Derhaeuptling\MobileContent\Eve
 $GLOBALS['TL_HOOKS']['isVisibleElement'][] = ['Derhaeuptling\MobileContent\EventListener\ElementListener', 'onIsVisibleElement'];
 $GLOBALS['TL_HOOKS']['initializeSystem'][] = ['Derhaeuptling\MobileContent\EventListener\PageListener', 'onInitializeSystem'];
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Derhaeuptling\MobileContent\EventListener\InsertTagsListener', 'onReplace'];
+
+if (!is_array($GLOBALS['TL_HOOKS']['parseTemplate'])) {
+    $GLOBALS['TL_HOOKS']['parseTemplate'] = [];
+}
+
+array_unshift($GLOBALS['TL_HOOKS']['parseTemplate'], ['Derhaeuptling\MobileContent\EventListener\TemplateListener', 'onParse']);
