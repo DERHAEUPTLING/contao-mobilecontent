@@ -17,7 +17,9 @@
     ->applyToPalette('root', 'tl_page');
 
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'enableMobileDns';
-$GLOBALS['TL_DCA']['tl_page']['subpalettes']['enableMobileDns'] = 'mobileDnsExplanation,mobileDns,mobileDnsAutoRedirect';
+$GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'mobileDnsBreakpointDetection';
+$GLOBALS['TL_DCA']['tl_page']['subpalettes']['enableMobileDns'] = 'mobileDnsExplanation,mobileDns,mobileDnsAutoRedirect,mobileDnsBreakpointDetection';
+$GLOBALS['TL_DCA']['tl_page']['subpalettes']['mobileDnsBreakpointDetection'] = 'mobileDnsBreakpoint';
 
 /**
  * Add fields
@@ -51,6 +53,22 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['mobileDnsAutoRedirect'] = [
     'inputType'     => 'checkbox',
     'eval'          => ['tl_class' => 'w50 m12'],
     'sql'           => "char(1) NOT NULL default ''",
+];
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['mobileDnsBreakpointDetection'] = [
+    'label'     => &$GLOBALS['TL_LANG']['tl_page']['mobileDnsBreakpointDetection'],
+    'exclude'   => true,
+    'inputType' => 'checkbox',
+    'eval'      => ['submitOnChange' => true, 'tl_class' => 'clr'],
+    'sql'       => "char(1) NOT NULL default ''",
+];
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['mobileDnsBreakpoint'] = [
+    'label'     => &$GLOBALS['TL_LANG']['tl_page']['mobileDnsBreakpoint'],
+    'exclude'   => true,
+    'inputType' => 'text',
+    'eval'      => ['rgxp' => 'digit', 'tl_class' => 'clr'],
+    'sql'       => "varchar(4) NOT NULL default ''",
 ];
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['mobileDnsExplanation'] = [

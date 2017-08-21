@@ -27,17 +27,27 @@ document.addEventListener('DOMContentLoaded', function () {
         Cookies.set(cookieRedirect, 1);
     }
 
+    function mobile(toggler) {
+        var breakpoint = toggler.dataset.breakpoint ? parseInt(toggler.dataset.breakpoint, 10) : 0;
+
+        if (breakpoint > 0) {
+            return window.matchMedia('(max-width:' + breakpoint + 'px)').matches;
+        } else {
+            return isMobile.any;
+        }
+    }
+
     Array.from(document.querySelectorAll('[data-mobile-toggler]')).forEach(function (toggler) {
         var isMobileDomain = toggler.dataset.mobileToggler === 'mobile';
 
         // Do not show the toggler if we are on the correct domain for the device
-        if ((isMobileDomain && isMobile.any) || (!isMobileDomain && !isMobile.any)) {
+        if ((isMobileDomain && mobile(toggler)) || (!isMobileDomain && !mobile(toggler))) {
             return;
         }
 
         // Auto redirect the user to the correct URL if it has not decided explicitly yet (no cookie)
         if (toggler.dataset.redirectDesktop && toggler.dataset.redirectMobile && !Cookies.get(cookieRedirect)) {
-            var target = isMobile.any ? toggler.dataset.redirectMobile : toggler.dataset.redirectDesktop;
+            var target = mobile(toggler) ? toggler.dataset.redirectMobile : toggler.dataset.redirectDesktop;
 
             if (window.location.host !== target) {
                 // Add the CSS class
@@ -58,9 +68,9 @@ document.addEventListener('DOMContentLoaded', function () {
         toggler.style.display = 'block';
 
         // Show only the link to desktop if we are on mobile domain with desktop device
-        if (isMobileDomain && !isMobile.any) {
+        if (isMobileDomain && !mobile(toggler)) {
             toggler.querySelector('[data-toggle="mobile"]').style.display = 'none';
-        } else if (!isMobileDomain && isMobile.any) {
+        } else if (!isMobileDomain && mobile(toggler)) {
             // Show only the link to mobile if we are on desktop domain with mobile device
             toggler.querySelector('[data-toggle="desktop"]').style.display = 'none';
         }

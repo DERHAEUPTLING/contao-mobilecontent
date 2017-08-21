@@ -67,5 +67,10 @@ class MobileSwitchModule extends Module
         $this->Template->mobileUrl = ($this->rootPage->useSSL ? 'https://' : 'http://') . $this->rootPage->mobileDns . $url;
         $this->Template->isMobile = Environment::get('host') === $this->rootPage->mobileDns;
         $this->Template->autoRedirect = $this->rootPage->mobileDnsAutoRedirect ? true : false;
+        $this->Template->breakpoint = false;
+
+        if ($this->rootPage->mobileDnsBreakpointDetection) {
+            $this->Template->breakpoint = $this->rootPage->mobileDnsBreakpoint;
+        }
     }
 }

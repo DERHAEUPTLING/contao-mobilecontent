@@ -4,7 +4,11 @@
 
 <?php $GLOBALS['TL_JAVASCRIPT'][] = \Haste\Util\Debug::uncompressedFile('system/modules/mobilecontent/assets/scripts.min.js'); ?>
 
-<div style="display:none;" data-mobile-toggler="<?= $this->isMobile ? 'mobile' : 'desktop' ?>"<?php if ($this->autoRedirect): ?> data-redirect-desktop="<?= $this->desktopUrl ?>" data-redirect-mobile="<?= $this->mobileUrl ?>"<?php endif; ?>>
+<div style="display:none;"
+     data-mobile-toggler="<?= $this->isMobile ? 'mobile' : 'desktop' ?>"
+     <?php if ($this->autoRedirect): ?> data-redirect-desktop="<?= $this->desktopUrl ?>" data-redirect-mobile="<?= $this->mobileUrl ?>"<?php endif; ?>
+     <?php if ($this->breakpoint): ?> data-breakpoint="<?= $this->breakpoint ?>"<?php endif; ?>
+>
     <div data-toggle="desktop">
         <span><?= $GLOBALS['TL_LANG']['MSC']['toggleDesktop'][1] ?></span>
         <a href="<?= ampersand($this->desktopUrl) ?>"><?= $GLOBALS['TL_LANG']['MSC']['yes'] ?></a>
