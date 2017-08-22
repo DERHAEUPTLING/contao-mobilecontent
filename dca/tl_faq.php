@@ -19,7 +19,9 @@
  * Extend palettes
  */
 $GLOBALS['TL_DCA']['tl_faq']['palettes']['__selector__'][] = 'mobileImage';
-$GLOBALS['TL_DCA']['tl_faq']['subpalettes']['mobileImage'] = 'mobileImageSrc,mobileImageSize';
+$GLOBALS['TL_DCA']['tl_faq']['palettes']['__selector__'][] = 'mobileImageCustomSize';
+$GLOBALS['TL_DCA']['tl_faq']['subpalettes']['mobileImage'] = 'mobileImageSrc,mobileImageCustomSize';
+$GLOBALS['TL_DCA']['tl_faq']['subpalettes']['mobileImageCustomSize'] = 'mobileImageSize';
 
 \Haste\Dca\PaletteManipulator::create()
     ->addField('mobileImage', 'singleSRC', \Haste\Dca\PaletteManipulator::POSITION_AFTER)
@@ -30,4 +32,5 @@ $GLOBALS['TL_DCA']['tl_faq']['subpalettes']['mobileImage'] = 'mobileImageSrc,mob
  */
 $GLOBALS['TL_DCA']['tl_faq']['fields']['mobileImage'] = &$GLOBALS['TL_DCA']['tl_content']['fields']['mobileImage'];
 $GLOBALS['TL_DCA']['tl_faq']['fields']['mobileImageSrc'] = &$GLOBALS['TL_DCA']['tl_content']['fields']['mobileImageSrc'];
+$GLOBALS['TL_DCA']['tl_faq']['fields']['mobileImageCustomSize'] = &$GLOBALS['TL_DCA']['tl_content']['fields']['mobileImageCustomSize'];
 $GLOBALS['TL_DCA']['tl_faq']['fields']['mobileImageSize'] = &$GLOBALS['TL_DCA']['tl_content']['fields']['mobileImageSize'];

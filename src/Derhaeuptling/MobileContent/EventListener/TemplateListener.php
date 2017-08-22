@@ -70,11 +70,10 @@ class TemplateListener
         }
 
         $data['singleSRC'] = $model->path;
-        $size = deserialize($data['mobileImageSize'], true);
 
-        // Set the size only if it was selected
-        if ($size[2]) {
-            $data['size'] = $size;
+        // Set the custom size
+        if ($data['mobileImageCustomSize']) {
+            $data['size'] = deserialize($data['mobileImageSize'], true);
         }
 
         Controller::addImageToTemplate($object, $data);
