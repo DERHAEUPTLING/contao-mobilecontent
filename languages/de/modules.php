@@ -10,7 +10,6 @@
  */
 
 /**
- * Miscellaneous
+ * Frontend modules
  */
-$GLOBALS['TL_LANG']['MSC']['toggleMobile'] = ['Mobile Version', 'Zur mobilen Version wechseln'];
-$GLOBALS['TL_LANG']['MSC']['toggleDesktop'] = ['Desktop Version', 'Zur desktop Version wechseln'];
+$GLOBALS['TL_LANG']['FMD']['mobile_switch'] = ['Mobile/desktop switch', 'Fügt die mobile/desktop Weiche der Seite hinzu.'];

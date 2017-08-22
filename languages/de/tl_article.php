@@ -12,11 +12,11 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_article']['hideOnDesktop'] = ['Hide on desktop', 'Hide the element on desktop devices.'];
-$GLOBALS['TL_LANG']['tl_article']['hideOnMobile'] = ['Hide on mobile', 'Hide the element on mobile devices.'];
+$GLOBALS['TL_LANG']['tl_article']['hideOnDesktop'] = ['Unsichtbar auf Desktopgeräten', 'Zeigt das Element auf Desktopgeräten nicht an.'];
+$GLOBALS['TL_LANG']['tl_article']['hideOnMobile'] = ['Unsichtbar auf Mobilgeräten', 'Zeigt das Element auf Mobilgeräten nicht an.'];
 
 /**
  * Buttons
  */
-$GLOBALS['TL_LANG']['tl_article']['toggleOnDesktop'] = ['Toggle on desktop', 'Show/hide the element on desktop devices.'];
-$GLOBALS['TL_LANG']['tl_article']['toggleOnMobile'] = ['Toggle on mobile', ' Show/hide the element on mobile devices.'];
+$GLOBALS['TL_LANG']['tl_article']['toggleOnDesktop'] = ['Sichtbarkeit für Desktop umschalten', 'Sichtbarkeit des Inhaltselements für Desktopgeräte ändern.'];
+$GLOBALS['TL_LANG']['tl_article']['toggleOnMobile'] = ['Sichtbarkeit für Mobile umschalten', 'Sichtbarkeit des Inhaltselements für Mobilgeräte ändern.'];
