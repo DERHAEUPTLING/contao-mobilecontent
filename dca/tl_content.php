@@ -27,7 +27,9 @@ array_insert($GLOBALS['TL_DCA']['tl_content']['list']['operations'], 5, [
  * Extend palettes
  */
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'mobileImage';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['mobileImage'] = 'mobileImageSrc,mobileImageSize';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'mobileImageCustomSize';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['mobileImage'] = 'mobileImageSrc,mobileImageCustomSize';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['mobileImageCustomSize'] = 'mobileImageSize';
 
 foreach ($GLOBALS['TL_DCA']['tl_content']['palettes'] as $k => $v) {
     if (is_array($v)) {
@@ -72,6 +74,14 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['mobileImageSrc'] = [
         'tl_class' => 'clr',
     ],
     'sql' => "binary(16) NULL",
+];
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['mobileImageCustomSize'] = [
+    'label' => &$GLOBALS['TL_LANG']['tl_content']['mobileImageCustomSize'],
+    'exclude' => true,
+    'inputType' => 'checkbox',
+    'eval' => ['submitOnChange' => true, 'tl_class' => 'clr'],
+    'sql' => "char(1) NOT NULL default ''",
 ];
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['mobileImageSize'] = [
