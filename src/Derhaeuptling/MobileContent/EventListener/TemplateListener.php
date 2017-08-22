@@ -31,30 +31,9 @@ class TemplateListener
                 $this->handleFaqPage($template);
             } else {
                 // Handle the regular template
-                $this->handleRegular($template);
+                $this->updateImage($template->getData(), $template);
             }
         }
-    }
-
-    /**
-     * Handle the regular template
-     *
-     * @param Template $template
-     */
-    private function handleRegular(Template $template)
-    {
-        if (!$template->mobileImage
-            || ($model = FilesModel::findByPk($template->mobileImageSrc)) === null
-            || !is_file(TL_ROOT . '/' . $model->path)
-        ) {
-            return;
-        }
-
-        $data = $template->getData();
-        $data['singleSRC'] = $model->path;
-        $data['size'] = $data['mobileImageSize'];
-
-        Controller::addImageToTemplate($template, $data);
     }
 
     /**
@@ -70,20 +49,34 @@ class TemplateListener
 
         foreach ($template->faq as $category) {
             foreach ($category['items'] as $faq) {
-                // Continue if the mobile image is not selected or does not exist
-                if (!$faq->mobileImage
-                    || ($model = FilesModel::findByPk($faq->mobileImageSrc)) === null
-                    || !is_file(TL_ROOT . '/' . $model->path)
-                ) {
-                    continue;
-                }
-
-                $data = (array) $faq;
-                $data['singleSRC'] = $model->path;
-                $data['size'] = $data['mobileImageSize'];
-
-                Controller::addImageToTemplate($faq, $data);
+                $this->updateImage((array) $faq, $faq);
             }
         }
+    }
+
+    /**
+     * Update the image data
+     *
+     * @param array  $data
+     * @param object $object
+     */
+    private function updateImage(array $data, $object)
+    {
+        if (!$data['mobileImage']
+            || ($model = FilesModel::findByPk($data['mobileImageSrc'])) === null
+            || !is_file(TL_ROOT . '/' . $model->path)
+        ) {
+            return;
+        }
+
+        $data['singleSRC'] = $model->path;
+        $size = deserialize($data['mobileImageSize'], true);
+
+        // Set the size only if it was selected
+        if ($size[2]) {
+            $data['size'] = $size;
+        }
+
+        Controller::addImageToTemplate($object, $data);
     }
 }
