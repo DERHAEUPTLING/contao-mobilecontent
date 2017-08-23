@@ -23,9 +23,11 @@ $GLOBALS['TL_DCA']['tl_calendar_events']['palettes']['__selector__'][] = 'mobile
 $GLOBALS['TL_DCA']['tl_calendar_events']['subpalettes']['mobileImage'] = 'mobileImageSrc,mobileImageCustomSize';
 $GLOBALS['TL_DCA']['tl_calendar_events']['subpalettes']['mobileImageCustomSize'] = 'mobileImageSize';
 
-\Haste\Dca\PaletteManipulator::create()
-    ->addField('mobileImage', 'singleSRC', \Haste\Dca\PaletteManipulator::POSITION_AFTER)
-    ->applyToSubpalette('addImage', 'tl_calendar_events');
+if (isset($GLOBALS['TL_DCA']['tl_calendar_events']['subpalettes']['addImage'])) {
+    \Haste\Dca\PaletteManipulator::create()
+        ->addField('mobileImage', 'singleSRC', \Haste\Dca\PaletteManipulator::POSITION_AFTER)
+        ->applyToSubpalette('addImage', 'tl_calendar_events');
+}
 
 /**
  * Add fields

@@ -23,9 +23,11 @@ $GLOBALS['TL_DCA']['tl_news']['palettes']['__selector__'][] = 'mobileImageCustom
 $GLOBALS['TL_DCA']['tl_news']['subpalettes']['mobileImage'] = 'mobileImageSrc,mobileImageCustomSize';
 $GLOBALS['TL_DCA']['tl_news']['subpalettes']['mobileImageCustomSize'] = 'mobileImageSize';
 
-\Haste\Dca\PaletteManipulator::create()
-    ->addField('mobileImage', 'singleSRC', \Haste\Dca\PaletteManipulator::POSITION_AFTER)
-    ->applyToSubpalette('addImage', 'tl_news');
+if (isset($GLOBALS['TL_DCA']['tl_news']['subpalettes']['addImage'])) {
+    \Haste\Dca\PaletteManipulator::create()
+        ->addField('mobileImage', 'singleSRC', \Haste\Dca\PaletteManipulator::POSITION_AFTER)
+        ->applyToSubpalette('addImage', 'tl_news');
+}
 
 /**
  * Add fields
