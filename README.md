@@ -47,7 +47,7 @@ visits a page with that parameter (e.g. by clicking the link) the cookie will be
 redirect back. This allows e.g. the mobile visitors to be redirected to the mobile version of the website on first
 page view but they can still view the desktop version by explicitly clicking the link.
 
-### mobile/desctop detection by Viewport
+### mobile/desktop detection by Viewport
 
 If the Contao default mobile/desktop detection by User Agent does not fit your needs, you can alternatively activate detection by viewport width.
 As this detection is done by JavaScript, the mobile/desktop switch front end module needs to be added to the layout.
