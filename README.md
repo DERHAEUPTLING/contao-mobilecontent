@@ -15,7 +15,7 @@ To toggle the content you can either edit the element settings or simply use the
 
 ![](docs/list-icons.png)
 
-## Differen mobile image
+## Different mobile image
 
 To use a different image for mobile devices check `Different mobile image` on any elment with an image.
 
