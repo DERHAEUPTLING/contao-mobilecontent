@@ -25,6 +25,7 @@ To use a different image for mobile devices check `Different mobile image` on an
 ## Mobile domain
  
 In the website root settings you can enable the special domain for the mobile devices.
+
 If mobile domain is enabled mobile and desktop layout will be distinguished by domain only.
 
 ![](docs/website-root.png)
