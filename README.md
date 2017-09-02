@@ -4,7 +4,7 @@ This extension lets you show or hide specific articles, content elements and fro
 Image fields are extended – you can now add an different image for the mobile devices.
 
 
-It works out of the box by recognizing the visitor user agent and displaying the appropriate content. 
+It works out of the box by recognizing the visitor user agent and displaying the appropriate content. <br>
 For use with CDN that caches the pages you may want to enable a separate mobile domain though (see explanation below).
 
 The extension is compatible with Contao 3 and 4. 
@@ -24,8 +24,7 @@ To use a different image for mobile devices check `Different mobile image` on an
 
 ## Mobile domain
  
-In the website root settings you can enable the special domain for the mobile devices.
-
+In the website root settings you can enable the special domain for the mobile devices. <br>
 If mobile domain is enabled mobile and desktop layout will be distinguished by domain only.
 
 ![](docs/website-root.png)
@@ -33,8 +32,7 @@ If mobile domain is enabled mobile and desktop layout will be distinguished by d
 
 ### Front end module
 
-To allow easy switch between the desktop and mobile domains you can add the mobile/desktop switch front end module that displays
-a short information about the parallel domain and allows the visitors to switch to the correct version of the website
+To allow easy switch between the desktop and mobile domains you can add the mobile/desktop switch front end module that displays a short information about the parallel domain and allows the visitors to switch to the correct version of the website
 for their device.
 
 
@@ -50,7 +48,7 @@ page view but they can still view the desktop version by explicitly clicking the
 
 ### mobile/desktop detection by Viewport
 
-If the Contao default mobile/desktop detection by User Agent does not fit your needs, you can alternatively activate detection by viewport width.
+If the Contao default mobile/desktop detection by User Agent does not fit your needs, you can alternatively activate detection by viewport width. <br>
 As this detection is done by JavaScript, the mobile/desktop switch front end module needs to be added to the layout.
 
 
