@@ -63,8 +63,8 @@ class MobileSwitchModule extends Module
     {
         $url = preg_replace('@https?://[^/]+@', '', Environment::get('uri'));
 
-        $this->Template->desktopUrl = ($this->rootPage->useSSL ? 'https://' : 'http://') . $this->rootPage->desktopDns . $url;
-        $this->Template->mobileUrl = ($this->rootPage->useSSL ? 'https://' : 'http://') . $this->rootPage->mobileDns . $url;
+        $this->Template->desktopUrl = ($this->rootPage->useSSL ? 'https://' : 'http://') . ($this->rootPage->desktopDns ?: $this->rootPage->dns) . $url;
+        $this->Template->mobileUrl = ($this->rootPage->useSSL ? 'https://' : 'http://') . ($this->rootPage->mobileDns ?: $this->rootPage->dns) . $url;
         $this->Template->isMobile = Environment::get('host') === $this->rootPage->mobileDns;
         $this->Template->autoRedirect = $this->rootPage->mobileDnsAutoRedirect ? true : false;
         $this->Template->breakpoint = false;
