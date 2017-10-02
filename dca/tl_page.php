@@ -13,12 +13,13 @@
  * Extend palettes
  */
 \Haste\Dca\PaletteManipulator::create()
+    ->addField('mobileDnsBreakpointDetection', 'dns_legend', \Haste\Dca\PaletteManipulator::POSITION_APPEND)
     ->addField('enableMobileDns', 'dns_legend', \Haste\Dca\PaletteManipulator::POSITION_APPEND)
     ->applyToPalette('root', 'tl_page');
 
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'enableMobileDns';
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'mobileDnsBreakpointDetection';
-$GLOBALS['TL_DCA']['tl_page']['subpalettes']['enableMobileDns'] = 'mobileDnsExplanation,mobileDns,mobileDnsAutoRedirect,mobileDnsBreakpointDetection';
+$GLOBALS['TL_DCA']['tl_page']['subpalettes']['enableMobileDns'] = 'mobileDnsExplanation,mobileDns,mobileDnsAutoRedirect';
 $GLOBALS['TL_DCA']['tl_page']['subpalettes']['mobileDnsBreakpointDetection'] = 'mobileDnsBreakpoint';
 
 /**

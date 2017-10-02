@@ -15,6 +15,7 @@ use Contao\BackendTemplate;
 use Contao\Environment;
 use Contao\Module;
 use Contao\PageModel;
+use Haste\Util\Url;
 
 class MobileSwitchModule extends Module
 {
@@ -49,7 +50,9 @@ class MobileSwitchModule extends Module
             return $template->parse();
         }
 
-        if (($this->rootPage = PageModel::findByPk($GLOBALS['objPage']->rootId)) === null || !$this->rootPage->enableMobileDns) {
+        if (($this->rootPage = PageModel::findByPk($GLOBALS['objPage']->rootId)) === null
+            || (!$this->rootPage->enableMobileDns && !$this->rootPage->mobileDnsBreakpointDetection)
+        ) {
             return '';
         }
 
@@ -61,12 +64,20 @@ class MobileSwitchModule extends Module
      */
     protected function compile()
     {
-        $url = preg_replace('@https?://[^/]+@', '', Environment::get('uri'));
+        if ($this->rootPage->enableMobileDns) {
+            $url = preg_replace('@https?://[^/]+@', '', Environment::get('uri'));
 
-        $this->Template->desktopUrl = ($this->rootPage->useSSL ? 'https://' : 'http://') . ($this->rootPage->desktopDns ?: $this->rootPage->dns) . $url;
-        $this->Template->mobileUrl = ($this->rootPage->useSSL ? 'https://' : 'http://') . ($this->rootPage->mobileDns ?: $this->rootPage->dns) . $url;
-        $this->Template->isMobile = Environment::get('host') === $this->rootPage->mobileDns;
-        $this->Template->autoRedirect = $this->rootPage->mobileDnsAutoRedirect ? true : false;
+            $this->Template->desktopUrl = ($this->rootPage->useSSL ? 'https://' : 'http://') . ($this->rootPage->desktopDns ?: $this->rootPage->dns) . $url;
+            $this->Template->mobileUrl = ($this->rootPage->useSSL ? 'https://' : 'http://') . ($this->rootPage->mobileDns ?: $this->rootPage->dns) . $url;
+            $this->Template->isMobile = Environment::get('host') === $this->rootPage->mobileDns;
+            $this->Template->autoRedirect = $this->rootPage->mobileDnsAutoRedirect ? true : false;
+        } else {
+            $this->Template->desktopUrl = Url::addQueryString('toggle_view=desktop');
+            $this->Template->mobileUrl = Url::addQueryString('toggle_view=mobile');
+            $this->Template->isMobile = $GLOBALS['objPage']->isMobile;
+            $this->Template->autoRedirect = false;
+        }
+
         $this->Template->breakpoint = false;
 
         if ($this->rootPage->mobileDnsBreakpointDetection) {
