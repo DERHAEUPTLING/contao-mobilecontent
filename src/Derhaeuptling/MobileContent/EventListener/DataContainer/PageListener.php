@@ -11,8 +11,46 @@
 
 namespace Derhaeuptling\MobileContent\EventListener\DataContainer;
 
+use Contao\DataContainer;
+use Contao\PageModel;
+use Haste\Dca\PaletteManipulator;
+
 class PageListener
 {
+    /**
+     * On load callback
+     *
+     * @param DataContainer $dc
+     */
+    public function onLoadCallback(DataContainer $dc)
+    {
+        if (!$dc->id || ($page = PageModel::findByPk($dc->id)) === null || $page->type !== 'root') {
+            return;
+        }
+
+        // Add the mobile DNS fields
+        if ($page->enableMobileDns) {
+            PaletteManipulator::create()
+                ->addField('mobileDns', 'enableMobileDns', PaletteManipulator::POSITION_AFTER)
+                ->addField('mobileDnsExplanation', 'enableMobileDns', PaletteManipulator::POSITION_AFTER)
+                ->applyToPalette('root', 'tl_page');
+        }
+
+        // Add the breakpoint detection fields
+        if ($page->mobileDnsBreakpointDetection) {
+            PaletteManipulator::create()
+                ->addField('mobileDnsBreakpoint', 'mobileDnsBreakpointDetection', PaletteManipulator::POSITION_AFTER)
+                ->applyToPalette('root', 'tl_page');
+        }
+
+        // Add the auto redirect field
+        if ($page->enableMobileDns || $page->mobileDnsBreakpointDetection) {
+            PaletteManipulator::create()
+                ->addField('mobileDnsAutoRedirect', 'dns_legend', PaletteManipulator::POSITION_APPEND)
+                ->applyToPalette('root', 'tl_page');
+        }
+    }
+
     /**
      * Generate the mobile DNS explanation
      */
