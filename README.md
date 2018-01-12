@@ -84,7 +84,7 @@ which type of view is currently active. *Note:* there is a single semicolon betw
 
 The content between the start and and tag is skipped if it appears on a desktop page.
 
-#### ifdesktop […] endifdesktop, ifnmobile […] endnifmobile
+#### ifdesktop […] endifdesktop, ifnmobile […] endifnmobile
 
 The content between the start and and tag is skipped if it appears on a mobile page.
 
