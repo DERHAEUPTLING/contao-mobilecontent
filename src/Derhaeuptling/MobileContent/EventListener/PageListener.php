@@ -30,6 +30,7 @@ class PageListener
     public function onGetPageLayout(PageModel $page, LayoutModel &$layout)
     {
         if (($rootPage = PageModel::findByPk($page->rootId)) === null || !$rootPage->enableMobileDns) {
+            $page->isMobile = Environment::get('agent')->mobile;
             return;
         }
 
