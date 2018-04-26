@@ -3,7 +3,7 @@
     "description": "MobileContent extension for Contao Open Source CMS",
     "keywords": ["contao", "mobile", "content"],
     "type": "contao-module",
-    "license": "LGPL",
+    "license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "derhaeuptling",
