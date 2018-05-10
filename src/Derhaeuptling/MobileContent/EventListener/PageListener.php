@@ -115,7 +115,7 @@ class PageListener
                 $options['order'] = "$t.dns DESC".(!empty($language) ? ", ".$db->findInSet("$t.language", array_reverse($language))." DESC" : "").", $t.sorting";
             }
 
-            if (!BE_USER_LOGGED_IN) {
+            if (!defined('BE_USER_LOGGED_IN') || !BE_USER_LOGGED_IN) {
                 $time      = Date::floorToMinute();
                 $columns[] = "($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'".($time + 60)."') AND $t.published='1'";
             }
@@ -129,7 +129,7 @@ class PageListener
                 $options['order'] = "$t.dns DESC, $t.fallback";
             }
 
-            if (!BE_USER_LOGGED_IN) {
+            if (!defined('BE_USER_LOGGED_IN') || !BE_USER_LOGGED_IN) {
                 $time      = Date::floorToMinute();
                 $columns[] = "($t.start='' OR $t.start<='$time') AND ($t.stop='' OR $t.stop>'".($time + 60)."') AND $t.published='1'";
             }
